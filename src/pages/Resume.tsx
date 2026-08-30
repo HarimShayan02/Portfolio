@@ -1,18 +1,7 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
-import {
-  PROFILE,
-  SKILLS,
-  EXPERIENCE,
-  EDUCATION,
-} from "../data/content";
-
-const fadeIn = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
-};
+import { PROFILE, SKILLS, EXPERIENCE, EDUCATION } from "../data/content";
+import { fadeIn, GhostLink, SectionLabel } from "../components/ui";
 
 export default function Resume() {
   return (
@@ -21,10 +10,7 @@ export default function Resume() {
       <main className="min-h-screen bg-bg pt-32 pb-16">
         <div className="mx-auto max-w-[800px] px-6 md:px-10">
           <motion.div {...fadeIn}>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-8 bg-stroke" />
-              <span className="text-xs uppercase tracking-[0.3em] text-muted">Resume</span>
-            </div>
+            <SectionLabel>Resume</SectionLabel>
             <h1 className="mb-2 font-display text-5xl italic text-text-primary md:text-6xl">
               {PROFILE.name}
             </h1>
@@ -67,9 +53,7 @@ export default function Resume() {
             </section>
 
             <section className="mb-10 border-b border-stroke pb-10">
-              <h2 className="mb-6 text-xs uppercase tracking-[0.3em] text-muted">
-                Work Experience
-              </h2>
+              <h2 className="mb-6 text-xs uppercase tracking-[0.3em] text-muted">Work Experience</h2>
               <div className="space-y-8">
                 {EXPERIENCE.map((job) => (
                   <div key={`${job.role}-${job.period}`}>
@@ -110,13 +94,7 @@ export default function Resume() {
               <p className="text-sm text-muted">English • Urdu</p>
             </section>
 
-            <Link
-              to="/"
-              className="group relative inline-flex rounded-full border border-stroke px-6 py-2.5 text-sm text-text-primary"
-            >
-              <span className="absolute inset-[-2px] rounded-full opacity-0 transition-opacity group-hover:opacity-100 accent-gradient" />
-              <span className="relative rounded-full bg-bg px-1">← Back home</span>
-            </Link>
+            <GhostLink to="/">← Back home</GhostLink>
           </motion.div>
         </div>
       </main>

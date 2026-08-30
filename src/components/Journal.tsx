@@ -1,13 +1,6 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { EXPERIENCE } from "../data/content";
-
-const fadeIn = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] as const },
-  viewport: { once: true, margin: "-100px" as const },
-};
+import { fadeIn, GhostLink, SectionLabel } from "./ui";
 
 const LEVEL_STYLES: Record<string, string> = {
   Senior: "border-[#89AACC]/30 bg-[#89AACC]/10 text-[#89AACC]",
@@ -24,10 +17,7 @@ export default function Journal() {
           className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between"
         >
           <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-8 bg-stroke" />
-              <span className="text-xs uppercase tracking-[0.3em] text-muted">Experience</span>
-            </div>
+            <SectionLabel>Experience</SectionLabel>
             <h2 className="mb-3 text-3xl text-text-primary md:text-4xl lg:text-5xl">
               Work <span className="font-display italic">history</span>
             </h2>
@@ -36,15 +26,9 @@ export default function Journal() {
               production apps across the stack.
             </p>
           </div>
-          <Link
-            to="/resume"
-            className="group relative hidden rounded-full border border-stroke px-6 py-2.5 text-sm text-text-primary transition-colors hover:border-transparent md:inline-flex md:items-center md:gap-2"
-          >
-            <span className="absolute inset-[-2px] rounded-full opacity-0 transition-opacity group-hover:opacity-100 accent-gradient" />
-            <span className="relative flex items-center gap-2 rounded-full bg-bg px-1">
-              Full resume <span>→</span>
-            </span>
-          </Link>
+          <GhostLink to="/resume" className="hidden md:inline-flex">
+            Full resume →
+          </GhostLink>
         </motion.div>
 
         <div className="relative">
@@ -64,9 +48,7 @@ export default function Journal() {
                   <div className="absolute left-0 top-8 hidden md:flex md:items-center md:justify-center">
                     <span
                       className={`relative z-10 flex h-3 w-3 rounded-full border-2 ${
-                        isCurrent
-                          ? "border-[#89AACC] bg-[#89AACC]"
-                          : "border-stroke bg-bg"
+                        isCurrent ? "border-[#89AACC] bg-[#89AACC]" : "border-stroke bg-bg"
                       }`}
                     >
                       {isCurrent && (
@@ -98,12 +80,10 @@ export default function Journal() {
                         <p className="mb-4 text-sm text-muted">
                           {entry.company} · {entry.period}
                         </p>
-
                         <p className="border-l-2 border-[#89AACC]/40 pl-4 text-sm leading-relaxed text-text-primary/90 md:text-base">
                           {entry.focus}
                         </p>
-
-                        {"spotlight" in entry && entry.spotlight && (
+                        {entry.spotlight && (
                           <p className="mt-4 text-xs text-muted md:text-sm">{entry.spotlight}</p>
                         )}
                       </div>
@@ -120,13 +100,7 @@ export default function Journal() {
         </div>
 
         <motion.div {...fadeIn} className="mt-8 flex justify-center md:hidden">
-          <Link
-            to="/resume"
-            className="group relative inline-flex rounded-full border border-stroke px-6 py-2.5 text-sm text-text-primary"
-          >
-            <span className="absolute inset-[-2px] rounded-full opacity-0 transition-opacity group-hover:opacity-100 accent-gradient" />
-            <span className="relative rounded-full bg-bg px-1">Full resume →</span>
-          </Link>
+          <GhostLink to="/resume">Full resume →</GhostLink>
         </motion.div>
       </div>
     </section>

@@ -42,7 +42,15 @@ export const SKILLS = [
   "Git",
 ];
 
-export const EXPERIENCE = [
+export const EXPERIENCE: {
+  role: string;
+  company: string;
+  period: string;
+  level: "Senior" | "Junior" | "Intern";
+  focus: string;
+  spotlight?: string;
+  highlights: string[];
+}[] = [
   {
     role: "Senior Software Engineer",
     company: "Brisktech",
@@ -96,7 +104,20 @@ export const EDUCATION = [
   },
 ];
 
-export const PROJECTS = [
+export type Project = {
+  title: string;
+  category: string;
+  description: string;
+  url?: string;
+  private?: boolean;
+  period: string;
+  location: string;
+  tags: string[];
+  image: string;
+  featured: boolean;
+};
+
+export const PROJECTS: Project[] = [
   {
     title: "Bottest AI",
     category: "AI",
@@ -107,8 +128,6 @@ export const PROJECTS = [
     location: "United States",
     tags: ["Next.js", "Node", "Tailwind CSS", "Clerk", "MongoDB", "Express", "Vercel"],
     image: bottestAiImg,
-    span: "md:col-span-7",
-    aspect: "aspect-[16/10]",
     featured: true,
   },
   {
@@ -121,8 +140,6 @@ export const PROJECTS = [
     location: "United States",
     tags: ["React", "SciChart", "Supabase", "ApexChart", "Tailwind CSS", "Clerk", "Stripe"],
     image: structureLabImg,
-    span: "md:col-span-7",
-    aspect: "aspect-[16/10]",
     featured: true,
   },
   {
@@ -135,8 +152,6 @@ export const PROJECTS = [
     location: "Netherlands",
     tags: ["Next.js", "Chakra UI", "Supabase", "n8n"],
     image: tenderMatchImg,
-    span: "md:col-span-5",
-    aspect: "aspect-[4/5]",
     featured: true,
   },
   {
@@ -149,8 +164,6 @@ export const PROJECTS = [
     location: "Brazil",
     tags: ["Vue.js", "Node", "MongoDB", "Express.js", "Tailwind CSS", "Stripe"],
     image: oempartsImg,
-    span: "md:col-span-5",
-    aspect: "aspect-[4/5]",
     featured: true,
   },
   {
@@ -171,8 +184,6 @@ export const PROJECTS = [
       "Ant Design",
     ],
     image: sloanLeaderImg,
-    span: "md:col-span-5",
-    aspect: "aspect-[4/5]",
     featured: false,
   },
   {
@@ -185,8 +196,6 @@ export const PROJECTS = [
     location: "Saudi Arabia",
     tags: ["React", "Firebase", "Tailwind CSS"],
     image: beautiseryImg,
-    span: "md:col-span-5",
-    aspect: "aspect-[4/5]",
     featured: false,
   },
 ];
@@ -194,12 +203,12 @@ export const PROJECTS = [
 export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
 
 export const WORK_VISUALS = [
-  { id: "1", img: exploration1, title: "Custom UI" },
-  { id: "2", img: exploration2, title: "Component Design" },
-  { id: "3", img: exploration3, title: "Fintech Dashboard" },
-  { id: "4", img: exploration4, title: "Interface Layout" },
-  { id: "5", img: exploration5, title: "Frontend Craft" },
-  { id: "6", img: exploration6, title: "Coding" },
+  { id: "1", img: exploration1, title: "Custom UI", width: 1478, height: 1518 },
+  { id: "2", img: exploration2, title: "Component Design", width: 3582, height: 2128 },
+  { id: "3", img: exploration3, title: "Fintech Dashboard", width: 1150, height: 1304 },
+  { id: "4", img: exploration4, title: "Interface Layout", width: 582, height: 638 },
+  { id: "5", img: exploration5, title: "Frontend Craft", width: 3584, height: 2022 },
+  { id: "6", img: exploration6, title: "Coding", width: 2048, height: 1366 },
 ];
 
 export const STATS = [

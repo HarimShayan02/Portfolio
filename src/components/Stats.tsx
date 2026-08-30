@@ -1,12 +1,6 @@
 import { motion } from "framer-motion";
 import { STATS } from "../data/content";
-
-const fadeIn = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] as const },
-  viewport: { once: true, margin: "-100px" as const },
-};
+import { fadeIn } from "./ui";
 
 export default function Stats() {
   return (

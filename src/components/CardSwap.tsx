@@ -100,12 +100,11 @@ export default function CardSwap({
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ease = easing === "elastic" ? "elastic.out(0.6,0.9)" : "power1.inOut";
-    const durDrop = easing === "elastic" ? 2 : 0.8;
-    const durMove = easing === "elastic" ? 2 : 0.8;
-    const durReturn = easing === "elastic" ? 2 : 0.8;
-    const promoteOverlap = easing === "elastic" ? 0.9 : 0.45;
-    const returnDelay = easing === "elastic" ? 0.05 : 0.2;
+    const elastic = easing === "elastic";
+    const ease = elastic ? "elastic.out(0.6,0.9)" : "power1.inOut";
+    const dur = elastic ? 2 : 0.8;
+    const promoteOverlap = elastic ? 0.9 : 0.45;
+    const returnDelay = elastic ? 0.05 : 0.2;
 
     const total = refs.length;
     refs.forEach((r, i) => {
@@ -123,13 +122,15 @@ export default function CardSwap({
       const tl = gsap.timeline();
       tlRef.current = tl;
 
+      const dropDistance = typeof height === "number" ? height * 1.15 : 360;
+
       tl.to(elFront, {
-        y: "+=500",
-        duration: durDrop,
+        y: `+=${dropDistance}`,
+        duration: dur,
         ease,
       });
 
-      tl.addLabel("promote", `-=${durDrop * promoteOverlap}`);
+      tl.addLabel("promote", `-=${dur * promoteOverlap}`);
       rest.forEach((idx, i) => {
         const el = refs[idx].current;
         if (!el) return;
@@ -141,7 +142,7 @@ export default function CardSwap({
             x: slot.x,
             y: slot.y,
             z: slot.z,
-            duration: durMove,
+            duration: dur,
             ease,
           },
           `promote+=${i * 0.15}`
@@ -149,7 +150,7 @@ export default function CardSwap({
       });
 
       const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length);
-      tl.addLabel("return", `promote+=${durMove * returnDelay}`);
+      tl.addLabel("return", `promote+=${dur * returnDelay}`);
       tl.call(
         () => {
           gsap.set(elFront, { zIndex: backSlot.zIndex });
@@ -164,7 +165,7 @@ export default function CardSwap({
           x: backSlot.x,
           y: backSlot.y,
           z: backSlot.z,
-          duration: durReturn,
+          duration: dur,
           ease,
         },
         "return"
@@ -197,7 +198,7 @@ export default function CardSwap({
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, refs]);
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, refs, height]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)
@@ -216,10 +217,10 @@ export default function CardSwap({
   return (
     <div
       ref={container}
-      className="relative transform-gpu perspective-[1200px]"
+      className="relative overflow-visible [transform-style:preserve-3d] [perspective:900px] transform-gpu"
       style={{ width, height }}
     >
-      <div className="absolute inset-0 [transform-style:preserve-3d]">{rendered}</div>
+      {rendered}
     </div>
   );
 }
